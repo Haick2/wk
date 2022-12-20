@@ -1,0 +1,174 @@
+[
+{
+"nome": "João da Silva",
+"idade": 30,
+"peso": 80,
+"altura": 1.80,
+"tipoSanguineo": "O+",
+"sexo": "M",
+"estado": "SP"
+},
+{
+"nome": "Maria da Silva",
+"idade": 25,
+"peso": 60,
+"altura": 1.70,
+"tipoSanguineo": "A+",
+"sexo": "F",
+"estado": "SP"
+},
+{
+"nome": "José da Silva",
+"idade": 20,
+"peso": 70,
+"altura": 1.75,
+"tipoSanguineo": "O+",
+"sexo": "M",
+"estado": "SP"
+},
+{
+"nome": "Joana da Silva",
+"idade": 18,
+"peso": 55,
+"altura": 1.65,
+"tipoSanguineo": "A+",
+"sexo": "F",
+"estado": "SP"
+},
+{
+"nome": "João da Silva",
+"idade": 30,
+"peso": 80,
+"altura": 1.80,
+"tipoSanguineo": "O+",
+"sexo": "M",
+"estado": "RJ"
+},
+{
+"nome": "Maria da Silva",
+"idade": 25,
+"peso": 60,
+"altura": 1.70,
+"tipoSanguineo": "A+",
+"sexo": "F",
+"estado": "RJ"
+},
+{
+"nome": "José da Silva",
+"idade": 20,
+"peso": 70,
+"altura": 1.75,
+"tipoSanguineo": "O+",
+"sexo": "M",
+"estado": "RJ"
+},
+{
+"nome": "Joana da Silva",
+"idade": 18,
+"peso": 55,
+"altura": 1.65,
+"tipoSanguineo": "A+",
+"sexo": "F",
+"estado": "RJ"
+}
+]
+Saída:
+{
+"estados": {
+"SP": 4,
+"RJ": 4
+},
+"imc": {
+"0-10": {
+"média": 0
+},
+"11-20": {
+"média": 0
+},
+"21-30": {
+"média": 0
+},
+"31-40": {
+"médiad": 0
+},
+"41-50": {
+"média": 0
+},
+"51-60": {
+"média": 0
+},
+"61-70": {
+"média": 0
+}
+},
+"obesos": {
+"homens": 0,
+"mulheres": 0
+},
+"idade": {
+"A+": 0,
+"A-": 0,
+"B+": 0,
+"B-": 0,
+"AB+": 0,
+"AB-": 0,
+"O+": 0,
+"O-": 0
+},
+"doadores": {
+"A+": 0,
+"A-": 0,
+"B+": 0,
+"B-": 0,
+"AB+": 0,
+"AB-": 0,
+"O+": 0,
+"O-": 0
+}
+}
+*/
+
+package com.teste.conhecimento;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+public class TesteConhecimento {
+
+public static void main(String[] args) {
+
+JSONParser parser = new JSONParser();
+
+try {
+
+Object obj = parser.parse(new FileReader("src/main/resources/candidatos.json"));
+JSONArray jsonArray = (JSONArray) obj;
+
+List<Candidato> candidatos = new ArrayList<Candidato>();
+
+for (Object object : jsonArray) {
+JSONObject jsonObject = (JSONObject) object;
+Candidato candidato = new Candidato();
+candidato.setNome((String) jsonObject.get("nome"));
+candidato.setIdade((Long) jsonObject.get("idade"));
+candidato.setPeso((Long) jsonObject.get("peso"));
+candidato.setAltura((Double) jsonObject.get("altura"));
+candidato.setTipoSanguineo((String) jsonObject.get("tipoSanguineo"));
+candidato.setSexo((String) jsonObject.get("sexo"));
+candidato.setEstado((String) jsonObject.get("estado"));
+candidatos.add(candidato);
+}
+
+JSONObject jsonObject = new JSONObject();
